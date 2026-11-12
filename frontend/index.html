@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0A3247" />
+  <title>Liberaciones · Impulsora</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ── Acceso ─────────────────────────────────────────────── -->
+<div id="vistaAcceso" class="acceso" hidden>
+  <div class="acceso-foto" aria-hidden="true"></div>
+
+  <div class="acceso-panel">
+    <img class="acceso-logo" src="logo.png" alt="Impulsora" />
+    <div class="acceso-titulo">Liberación de órdenes</div>
+
+    <form id="pasoUsuario" novalidate>
+      <label class="campo">
+        <span>Usuario</span>
+        <input id="usuario" type="text" autocomplete="username" autocapitalize="characters" autocorrect="off" spellcheck="false" />
+        <small>Tu usuario de JD Edwards</small>
+      </label>
+      <label class="campo">
+        <span>Correo</span>
+        <input id="correo" type="email" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" />
+        <small>El correo registrado en JD Edwards</small>
+      </label>
+      <div class="aviso aviso-error" id="errorUsuario" hidden></div>
+      <button class="btn btn-primario btn-bloque" id="btnEntrar" type="submit">Entrar</button>
+    </form>
+
+    <form id="pasoCodigo" novalidate hidden>
+      <div class="acceso-subtitulo">Código de acceso</div>
+      <p class="acceso-texto">Escribe el código de 6 dígitos que muestra tu app de autenticación.</p>
+
+      <div class="codigo">
+        <input id="codigo" type="text" inputmode="numeric" pattern="[0-9]*"
+               autocomplete="one-time-code" aria-label="Código de 6 dígitos" />
+        <div class="codigo-celdas" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <div class="aviso aviso-error" id="errorCodigo" hidden></div>
+      <div class="aviso aviso-info" id="notaCodigo" hidden></div>
+      <div class="codigo-botones">
+        <button class="btn btn-secundario" id="btnPegar" type="button">Pegar</button>
+        <button class="btn btn-primario" id="btnVerificar" type="submit">Verificar</button>
+      </div>
+
+      <div class="acceso-enlaces">
+        <button type="button" class="enlace" id="btnVolver">Volver</button>
+        <button type="button" class="enlace" id="btnConfigurar">¿Primera vez? Configurar mi app</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ── Aplicación ─────────────────────────────────────────── -->
+<div id="vistaApp" hidden>
+  <header class="barra">
+    <img class="barra-logo" src="logo.png" alt="Impulsora" />
+    <div class="barra-usuario">
+      <span id="usuarioActivo"></span>
+      <button type="button" class="enlace" id="btnSalir">Salir</button>
+    </div>
+  </header>
+
+  <section class="busqueda" id="busqueda">
+    <h1>Liberación de órdenes</h1>
+    <p>Escribe el número de documento para revisarlo.</p>
+    <form class="busqueda-fila" id="formBusqueda" novalidate>
+      <div class="selector">
+        <select id="tipoDoc" aria-label="Tipo de documento">
+          <option value="SQ" selected>SQ</option>
+          <option value=""></option>
+        </select>
+      </div>
+      <input id="numDoc" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off"
+             placeholder="Número" aria-label="Número de documento" />
+      <button class="btn btn-accion" id="btnBuscar" type="submit">Buscar</button>
+    </form>
+  </section>
+
+  <div class="aviso aviso-error aviso-pagina" id="errorBusqueda" hidden></div>
+
+  <main id="orden" hidden>
+    <div class="doc-titulo">
+      <span class="doc-etiqueta">Orden</span>
+      <span class="doc-numero" id="docNumero"></span>
+    </div>
+
+    <table class="ficha" id="encabezado"></table>
+
+    <table class="ficha ficha-utilidad">
+      <tr>
+        <th>Utilidad</th>
+        <td class="celda-utilidad" id="utilidad"></td>
+      </tr>
+    </table>
+
+    <h2 class="seccion">Detalle de la orden <span id="numPartidas"></span></h2>
+    <table class="detalle">
+      <thead>
+        <tr>
+          <th class="col-art">Artículo</th>
+          <th class="num">Cant.</th>
+          <th class="num">PU Máx.<br>Aut.</th>
+          <th class="num">PU<br>Orden</th>
+          <th class="num">Dif.</th>
+        </tr>
+      </thead>
+      <tbody id="partidas"></tbody>
+    </table>
+    <p class="nota-pie">Toca un artículo para ver descripción, costo y promociones.</p>
+  </main>
+
+  <main id="resultado" hidden>
+    <div class="resultado-estado" id="resultadoEstado"></div>
+    <table class="ficha" id="resultadoFicha"></table>
+    <div class="resultado-accion">
+      <button type="button" class="btn btn-primario btn-bloque" id="btnOtra">Buscar otra orden</button>
+    </div>
+  </main>
+
+  <div class="acciones" id="acciones" hidden>
+    <button type="button" class="btn btn-secundario" id="btnRechazar">Rechazar</button>
+    <button type="button" class="btn btn-primario" id="btnLiberar">Liberar</button>
+  </div>
+</div>
+
+<!-- ── Confirmaciones ─────────────────────────────────────── -->
+<div class="velo" id="velo" hidden>
+  <div class="hoja" id="hojaLiberar" role="dialog" aria-modal="true" aria-labelledby="tituloLiberar" hidden>
+    <h3 id="tituloLiberar"></h3>
+    <p id="textoLiberar"></p>
+    <table class="ficha ficha-compacta" id="resumenLiberar"></table>
+    <div class="aviso aviso-error" id="errorLiberar" hidden></div>
+    <div class="hoja-botones">
+      <button type="button" class="btn btn-secundario" data-cerrar>Cancelar</button>
+      <button type="button" class="btn btn-primario" id="btnConfirmarLiberar">Sí, liberar</button>
+    </div>
+  </div>
+
+  <div class="hoja" id="hojaRechazar" role="dialog" aria-modal="true" aria-labelledby="tituloRechazar" hidden>
+    <h3 id="tituloRechazar"></h3>
+    <p id="textoRechazar"></p>
+    <label class="campo">
+      <span>Observación</span>
+      <textarea id="observacion" rows="4" maxlength="500" placeholder="Motivo del rechazo"></textarea>
+      <small><span id="cuentaObservacion">0</span> / 500 · se incluye en el correo al originador</small>
+    </label>
+    <div class="aviso aviso-error" id="errorRechazar" hidden></div>
+    <div class="hoja-botones">
+      <button type="button" class="btn btn-secundario" data-cerrar>Cancelar</button>
+      <button type="button" class="btn btn-rechazo" id="btnConfirmarRechazar" disabled>Sí, rechazar</button>
+    </div>
+  </div>
+</div>
+
+<script src="api.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
