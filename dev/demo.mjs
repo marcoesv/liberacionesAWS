@@ -1,10 +1,8 @@
 /**
  * demo.mjs — arma una versión de demostración de la página en dev/demo/:
  * un solo index.html con estilos y scripts incrustados, que responde /api/*
- * dentro del navegador con los datos de ejemplo, sin servidor.
- *
- * El index.html sale sin <html>, <head> ni <body>: es el contenido de la
- * página, listo para publicarse en un servicio que pone ese envoltorio.
+ * dentro del navegador con los datos de ejemplo, sin servidor. La carpeta se
+ * puede abrir directo o subir a cualquier hospedaje de archivos estáticos.
  *
  *   node dev/demo.mjs
  */
@@ -59,13 +57,25 @@ function simulacion(responder, demo) {
 const html = await leer("index.html");
 const cuerpo = /<body>([\s\S]*)<\/body>/.exec(html)[1].replace(/<script src="[^"]+"><\/script>\s*/g, "");
 
-const pagina = `<title>Liberaciones Impulsora Demo</title>
+const pagina = `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A3247">
+<title>Liberaciones · Impulsora · Demostración</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <style>
 ${await leer("styles.css")}
 .demo-nota { padding: 7px 14px; background: var(--etiqueta); border-bottom: 1px solid var(--linea); font-size: 12px; font-weight: 500; color: var(--tenue); }
 .acceso-panel .demo-nota { margin: -6px 0 16px; border: 1px solid var(--linea); padding: 8px 10px; }
 </style>
+</head>
+<body>
 ${cuerpo.trim()}
 <script>
 (${enScript(simulacion.toString())})(
@@ -79,6 +89,8 @@ ${enScript(await leer("api.js"))}
 <script>
 ${enScript(await leer("app.js"))}
 </script>
+</body>
+</html>
 `;
 
 await mkdir(SALIDA, { recursive: true });
