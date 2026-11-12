@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A3247">
+<title>Liberaciones · Impulsora · Demostración</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --tinta:      #00222B;
+  --marino:     #0A3247;
+  --azul:       #0F5E8C;
+  --azul-osc:   #0B4B70;
+
+  --fondo:      #F3F5F7;
+  --superficie: #FFFFFF;
+  --etiqueta:   #E9EDF1;
+  --linea:      #C5CED6;
+  --texto:      #14212B;
+  --tenue:      #5B6B78;
+
+  --amarillo:   #FFE600;
+  --verde:      #A9D18E;
+  --rojo:       #D32020;
+
+  --pie:        env(safe-area-inset-bottom, 0px);
+}
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.35;
+  color: var(--texto);
+  background: var(--fondo);
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+[hidden] { display: none !important; }
+
+input, select, textarea, button {
+  font: inherit;
+  color: inherit;
+  border-radius: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* ── Botones ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 18px;
+  border: 1px solid transparent;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:disabled { opacity: .45; cursor: default; }
+.btn-bloque { width: 100%; }
+.btn-primario   { background: var(--marino); color: #fff; }
+.btn-primario:active:not(:disabled)   { background: var(--tinta); }
+.btn-secundario { background: var(--superficie); color: var(--marino); border-color: var(--marino); }
+.btn-secundario:active:not(:disabled) { background: var(--etiqueta); }
+.btn-accion     { background: var(--azul); color: #fff; }
+.btn-accion:active:not(:disabled)     { background: var(--azul-osc); }
+.btn-rechazo    { background: var(--rojo); color: #fff; }
+
+.enlace {
+  background: none;
+  border: none;
+  padding: 6px 0;
+  color: var(--azul);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+/* ── Campos ── */
+.campo { display: block; margin-bottom: 14px; }
+.campo > span {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--tenue);
+}
+.campo input, .campo textarea {
+  display: block;
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--linea);
+  background: var(--superficie);
+  font-size: 16px;
+  outline: none;
+}
+.campo textarea { resize: none; line-height: 1.4; }
+.campo input:focus, .campo textarea:focus { border-color: var(--azul); box-shadow: inset 0 0 0 1px var(--azul); }
+.campo small { display: block; margin-top: 5px; font-size: 12px; color: var(--tenue); }
+
+/* ── Avisos ── */
+.aviso { padding: 10px 12px; margin-bottom: 14px; font-size: 14px; font-weight: 500; }
+.aviso-error { background: var(--rojo); color: #fff; }
+.aviso-info  { background: var(--etiqueta); color: var(--texto); border-left: 3px solid var(--azul); }
+.aviso-pagina { margin: 0; }
+
+/* ── Acceso ── */
+.acceso {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px 16px calc(16px + var(--pie));
+  background: var(--marino);
+}
+.acceso-foto {
+  position: absolute;
+  inset: 0;
+  background: url("impulsora-store.jpg") 22% center / cover no-repeat;
+}
+.acceso-foto::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 46, 70, .80);
+}
+.acceso-panel {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 24px 20px 20px;
+  background: var(--superficie);
+  border-top: 4px solid var(--azul);
+}
+.acceso-logo { display: block; height: 26px; width: auto; }
+.acceso-titulo {
+  margin: 14px 0 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--linea);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--tinta);
+}
+.acceso-subtitulo { font-size: 16px; font-weight: 700; color: var(--tinta); }
+.acceso-texto { margin: 6px 0 16px; font-size: 14px; color: var(--tenue); }
+.acceso-enlaces { display: flex; justify-content: space-between; gap: 12px; margin-top: 12px; }
+
+.codigo { position: relative; margin-bottom: 16px; }
+.codigo input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: transparent;
+  caret-color: transparent;
+  font-size: 16px;
+  outline: none;
+  z-index: 1;
+}
+.codigo-celdas { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.codigo-celdas span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 54px;
+  border: 1px solid var(--linea);
+  background: var(--superficie);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--tinta);
+}
+.codigo-botones { display: grid; grid-template-columns: 1fr 2fr; gap: 10px; }
+.codigo-celdas span.activa { border-color: var(--azul); box-shadow: inset 0 0 0 1px var(--azul); }
+
+/* ── Barra superior ── */
+.barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  padding: 0 14px;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: var(--superficie);
+  border-bottom: 3px solid var(--azul);
+  box-sizing: content-box;
+}
+.barra-logo { display: block; height: 22px; width: auto; }
+.barra-usuario { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 600; color: var(--tinta); }
+.barra-usuario .enlace { font-size: 13px; }
+
+/* ── Búsqueda ── */
+.busqueda { background: var(--marino); color: #fff; padding: 28px 14px 30px; }
+.busqueda h1 { font-size: 22px; font-weight: 700; letter-spacing: -.01em; }
+.busqueda p { margin: 6px 0 18px; font-size: 14px; color: rgba(255,255,255,.75); }
+.busqueda.compacta { padding: 10px 14px; }
+.busqueda.compacta h1, .busqueda.compacta p { display: none; }
+
+.busqueda-fila { display: flex; background: var(--superficie); }
+.selector { position: relative; flex: 0 0 76px; border-right: 1px solid var(--linea); }
+.selector select {
+  width: 100%;
+  height: 48px;
+  padding: 0 26px 0 14px;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--tinta);
+  outline: none;
+}
+.selector::after {
+  content: "";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin-top: -6px;
+  border-right: 2px solid var(--tinta);
+  border-bottom: 2px solid var(--tinta);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+.busqueda-fila input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 48px;
+  padding: 0 12px;
+  border: none;
+  background: transparent;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--tinta);
+  outline: none;
+}
+.busqueda-fila input::placeholder { color: #9AA7B2; font-weight: 400; }
+.busqueda-fila .btn { flex: 0 0 auto; min-width: 92px; }
+
+/* ── Orden ── */
+#orden { padding-bottom: calc(96px + var(--pie)); }
+
+.doc-titulo {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 16px 14px 12px;
+}
+.doc-etiqueta { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--tenue); }
+.doc-numero { font-size: 22px; font-weight: 700; color: var(--tinta); }
+
+.seccion {
+  padding: 16px 14px 7px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--tinta);
+}
+.seccion span { font-weight: 500; color: var(--tenue); letter-spacing: 0; text-transform: none; }
+
+/* Tabla de etiqueta / valor */
+.ficha {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--superficie);
+  border-top: 1px solid var(--linea);
+  border-bottom: 1px solid var(--linea);
+}
+.ficha th, .ficha td {
+  padding: 9px 12px;
+  border-top: 1px solid var(--linea);
+  text-align: left;
+  vertical-align: top;
+  font-size: 14px;
+}
+.ficha tr:first-child th, .ficha tr:first-child td { border-top: none; }
+.ficha th {
+  width: 42%;
+  background: var(--etiqueta);
+  border-right: 1px solid var(--linea);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tenue);
+}
+.ficha td { font-weight: 600; color: var(--texto); }
+.ficha td .sub { display: block; font-weight: 400; color: var(--texto); }
+.ficha td .par { display: flex; justify-content: space-between; gap: 10px; }
+.ficha td .par .desc { font-weight: 400; }
+.ficha td .vacio { font-weight: 400; color: var(--tenue); }
+
+.ficha-utilidad { margin-top: 12px; }
+.ficha-utilidad th {
+  vertical-align: middle;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--tinta);
+}
+.celda-utilidad {
+  background: var(--amarillo);
+  text-align: right !important;
+  font-size: 26px !important;
+  font-weight: 700 !important;
+  color: #000 !important;
+  padding: 10px 14px !important;
+}
+
+.ficha-compacta { margin: 0 0 16px; border: 1px solid var(--linea); }
+.ficha-compacta .celda-utilidad { font-size: 18px !important; padding: 8px 12px !important; }
+
+/* Detalle de la orden */
+.detalle {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background: var(--superficie);
+  border-bottom: 1px solid var(--linea);
+}
+.detalle th {
+  padding: 7px 8px;
+  background: var(--marino);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: left;
+  vertical-align: bottom;
+  border-right: 1px solid rgba(255,255,255,.22);
+}
+.detalle th:last-child { border-right: none; }
+.detalle th.num, .detalle td.num { text-align: right; }
+.detalle .col-art { width: auto; }
+.detalle th:nth-child(2) { width: 56px; }
+.detalle th:nth-child(3), .detalle th:nth-child(4) { width: 78px; }
+.detalle th:nth-child(5) { width: 70px; }
+
+.detalle td {
+  padding: 10px 7px;
+  border-top: 1px solid var(--linea);
+  border-right: 1px solid var(--linea);
+  font-size: 13.5px;
+  color: #000;
+  vertical-align: middle;
+}
+.detalle td:last-child { border-right: none; }
+.partida { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.partida .art { display: flex; align-items: center; gap: 7px; }
+.partida .flecha {
+  flex: 0 0 auto;
+  width: 6px;
+  height: 6px;
+  margin-left: 2px;
+  border-right: 2px solid var(--tenue);
+  border-bottom: 2px solid var(--tenue);
+  transform: rotate(-45deg);
+}
+.partida.abierta .flecha { transform: rotate(45deg); margin-top: -3px; }
+.partida .sku { font-weight: 700; font-size: 14px; overflow-wrap: anywhere; }
+.partida .unidad { display: block; font-size: 11px; font-weight: 400; color: var(--tenue); }
+.partida.abierta td { background: #F6F8FA; }
+
+.dif { font-weight: 700; }
+.detalle td.dif-neg { background: var(--rojo); color: #fff; }
+.detalle td.dif-pos { background: var(--verde); color: #000; }
+
+.partida-detalle td { padding: 0; background: #F6F8FA; border-top: none; }
+.partida-detalle dl { padding: 2px 12px 12px 27px; }
+.partida-detalle .renglon {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 0;
+  border-top: 1px solid var(--linea);
+  font-size: 13.5px;
+}
+.partida-detalle dt { flex: 0 0 auto; color: var(--tenue); font-weight: 500; }
+.partida-detalle dd { text-align: right; font-weight: 600; color: #000; }
+.partida-detalle .renglon.bloque { display: block; }
+.partida-detalle .renglon.bloque dd { text-align: left; margin-top: 3px; }
+.partida-detalle .promo { display: block; font-weight: 600; }
+.partida-detalle .promo + .promo { margin-top: 6px; }
+.partida-detalle .promo small { display: block; font-size: 12px; font-weight: 400; color: var(--tenue); }
+.partida-detalle .vacio { font-weight: 400; color: var(--tenue); }
+
+.nota-pie { padding: 10px 14px 0; font-size: 12px; color: var(--tenue); }
+
+/* ── Acciones fijas ── */
+.acciones {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 10px 14px calc(10px + var(--pie));
+  background: var(--superficie);
+  border-top: 1px solid var(--linea);
+  z-index: 10;
+}
+
+/* ── Hojas de confirmación ── */
+.velo {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  background: rgba(0, 22, 30, .6);
+  z-index: 50;
+}
+.hoja {
+  width: 100%;
+  max-height: 92dvh;
+  overflow-y: auto;
+  padding: 20px 16px calc(16px + var(--pie));
+  background: var(--superficie);
+  border-top: 4px solid var(--azul);
+}
+#hojaRechazar { border-top-color: var(--rojo); }
+.hoja h3 { font-size: 18px; font-weight: 700; color: var(--tinta); }
+.hoja p { margin: 8px 0 16px; font-size: 14px; color: var(--tenue); }
+.hoja-botones { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* ── Resultado ── */
+#resultado { padding-bottom: calc(24px + var(--pie)); }
+.resultado-estado {
+  padding: 18px 14px;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+.resultado-estado small { display: block; margin-top: 3px; font-size: 13px; font-weight: 500; letter-spacing: 0; }
+.resultado-estado.liberada  { background: var(--verde); color: #000; }
+.resultado-estado.rechazada { background: var(--rojo); color: #fff; }
+.resultado-accion { padding: 18px 14px 0; }
+
+@media (min-width: 640px) {
+  .acceso { justify-content: center; }
+  #vistaApp { max-width: 560px; margin: 0 auto; background: var(--fondo); }
+  .acciones, .velo { max-width: 560px; margin: 0 auto; }
+}
+
+.demo-nota { padding: 7px 14px; background: var(--etiqueta); border-bottom: 1px solid var(--linea); font-size: 12px; font-weight: 500; color: var(--tenue); }
+.acceso-panel .demo-nota { margin: -6px 0 16px; border: 1px solid var(--linea); padding: 8px 10px; }
+</style>
+</head>
+<body>
+<!-- ── Acceso ─────────────────────────────────────────────── -->
+<div id="vistaAcceso" class="acceso" hidden>
+  <div class="acceso-foto" aria-hidden="true"></div>
+
+  <div class="acceso-panel">
+    <img class="acceso-logo" src="logo.png" alt="Impulsora" />
+    <div class="acceso-titulo">Liberación de órdenes</div>
+
+    <form id="pasoUsuario" novalidate>
+      <label class="campo">
+        <span>Usuario</span>
+        <input id="usuario" type="text" autocomplete="username" autocapitalize="characters" autocorrect="off" spellcheck="false" />
+        <small>Tu usuario de JD Edwards</small>
+      </label>
+      <label class="campo">
+        <span>Correo</span>
+        <input id="correo" type="email" autocomplete="email" autocapitalize="none" autocorrect="off" spellcheck="false" />
+        <small>El correo registrado en JD Edwards</small>
+      </label>
+      <div class="aviso aviso-error" id="errorUsuario" hidden></div>
+      <button class="btn btn-primario btn-bloque" id="btnEntrar" type="submit">Entrar</button>
+    </form>
+
+    <form id="pasoCodigo" novalidate hidden>
+      <div class="acceso-subtitulo">Código de acceso</div>
+      <p class="acceso-texto">Escribe el código de 6 dígitos que muestra tu app de autenticación.</p>
+
+      <div class="codigo">
+        <input id="codigo" type="text" inputmode="numeric" pattern="[0-9]*"
+               autocomplete="one-time-code" aria-label="Código de 6 dígitos" />
+        <div class="codigo-celdas" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <div class="aviso aviso-error" id="errorCodigo" hidden></div>
+      <div class="aviso aviso-info" id="notaCodigo" hidden></div>
+      <div class="codigo-botones">
+        <button class="btn btn-secundario" id="btnPegar" type="button">Pegar</button>
+        <button class="btn btn-primario" id="btnVerificar" type="submit">Verificar</button>
+      </div>
+
+      <div class="acceso-enlaces">
+        <button type="button" class="enlace" id="btnVolver">Volver</button>
+        <button type="button" class="enlace" id="btnConfigurar">¿Primera vez? Configurar mi app</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ── Aplicación ─────────────────────────────────────────── -->
+<div id="vistaApp" hidden>
+  <header class="barra">
+    <img class="barra-logo" src="logo.png" alt="Impulsora" />
+    <div class="barra-usuario">
+      <span id="usuarioActivo"></span>
+      <button type="button" class="enlace" id="btnSalir">Salir</button>
+    </div>
+  </header>
+
+  <section class="busqueda" id="busqueda">
+    <h1>Liberación de órdenes</h1>
+    <p>Escribe el número de documento para revisarlo.</p>
+    <form class="busqueda-fila" id="formBusqueda" novalidate>
+      <div class="selector">
+        <select id="tipoDoc" aria-label="Tipo de documento">
+          <option value="SQ" selected>SQ</option>
+          <option value=""></option>
+        </select>
+      </div>
+      <input id="numDoc" type="text" inputmode="numeric" pattern="[0-9]*" autocomplete="off"
+             placeholder="Número" aria-label="Número de documento" />
+      <button class="btn btn-accion" id="btnBuscar" type="submit">Buscar</button>
+    </form>
+  </section>
+
+  <div class="aviso aviso-error aviso-pagina" id="errorBusqueda" hidden></div>
+
+  <main id="orden" hidden>
+    <div class="doc-titulo">
+      <span class="doc-etiqueta">Orden</span>
+      <span class="doc-numero" id="docNumero"></span>
+    </div>
+
+    <table class="ficha" id="encabezado"></table>
+
+    <table class="ficha ficha-utilidad">
+      <tr>
+        <th>Utilidad</th>
+        <td class="celda-utilidad" id="utilidad"></td>
+      </tr>
+    </table>
+
+    <h2 class="seccion">Detalle de la orden <span id="numPartidas"></span></h2>
+    <table class="detalle">
+      <thead>
+        <tr>
+          <th class="col-art">Artículo</th>
+          <th class="num">Cant.</th>
+          <th class="num">PU Máx.<br>Aut.</th>
+          <th class="num">PU<br>Orden</th>
+          <th class="num">Dif.</th>
+        </tr>
+      </thead>
+      <tbody id="partidas"></tbody>
+    </table>
+    <p class="nota-pie">Toca un artículo para ver descripción, costo y promociones.</p>
+  </main>
+
+  <main id="resultado" hidden>
+    <div class="resultado-estado" id="resultadoEstado"></div>
+    <table class="ficha" id="resultadoFicha"></table>
+    <div class="resultado-accion">
+      <button type="button" class="btn btn-primario btn-bloque" id="btnOtra">Buscar otra orden</button>
+    </div>
+  </main>
+
+  <div class="acciones" id="acciones" hidden>
+    <button type="button" class="btn btn-secundario" id="btnRechazar">Rechazar</button>
+    <button type="button" class="btn btn-primario" id="btnLiberar">Liberar</button>
+  </div>
+</div>
+
+<!-- ── Confirmaciones ─────────────────────────────────────── -->
+<div class="velo" id="velo" hidden>
+  <div class="hoja" id="hojaLiberar" role="dialog" aria-modal="true" aria-labelledby="tituloLiberar" hidden>
+    <h3 id="tituloLiberar"></h3>
+    <p id="textoLiberar"></p>
+    <table class="ficha ficha-compacta" id="resumenLiberar"></table>
+    <div class="aviso aviso-error" id="errorLiberar" hidden></div>
+    <div class="hoja-botones">
+      <button type="button" class="btn btn-secundario" data-cerrar>Cancelar</button>
+      <button type="button" class="btn btn-primario" id="btnConfirmarLiberar">Sí, liberar</button>
+    </div>
+  </div>
+
+  <div class="hoja" id="hojaRechazar" role="dialog" aria-modal="true" aria-labelledby="tituloRechazar" hidden>
+    <h3 id="tituloRechazar"></h3>
+    <p id="textoRechazar"></p>
+    <label class="campo">
+      <span>Observación</span>
+      <textarea id="observacion" rows="4" maxlength="500" placeholder="Motivo del rechazo"></textarea>
+      <small><span id="cuentaObservacion">0</span> / 500 · se incluye en el correo al originador</small>
+    </label>
+    <div class="aviso aviso-error" id="errorRechazar" hidden></div>
+    <div class="hoja-botones">
+      <button type="button" class="btn btn-secundario" data-cerrar>Cancelar</button>
+      <button type="button" class="btn btn-rechazo" id="btnConfirmarRechazar" disabled>Sí, rechazar</button>
+    </div>
+  </div>
+</div>
+<script>
+(function simulacion(responder, demo) {
+  const fetchReal = window.fetch.bind(window);
+  window.fetch = async (ruta, opciones = {}) => {
+    const url = new URL(ruta, location.href);
+    const inicio = url.pathname.indexOf("/api/");
+    if (inicio < 0) return fetchReal(ruta, opciones);
+
+    let cuerpo = {};
+    try { cuerpo = (opciones.body && JSON.parse(opciones.body)) || {}; } catch { /* cuerpo vacío */ }
+    const token = (opciones.headers || {})["X-Session-Token"];
+    const [estado, respuesta] = responder(`${opciones.method || "GET"} ${url.pathname.slice(inicio)}`, cuerpo, token);
+    await new Promise((listo) => setTimeout(listo, 350));
+    return new Response(JSON.stringify(respuesta), { status: estado, headers: { "content-type": "application/json" } });
+  };
+
+  const nota = (texto) => {
+    const el = document.createElement("div");
+    el.className = "demo-nota";
+    el.textContent = texto;
+    return el;
+  };
+  document.querySelector(".acceso-titulo").after(
+    nota(`Demostración con datos de ejemplo. Código de acceso: ${demo.codigo}.`),
+  );
+  document.querySelector(".barra").after(
+    nota(`Demostración · datos de ejemplo · orden de prueba ${demo.orden}`),
+  );
+  document.getElementById("usuario").value = demo.usuario;
+  document.getElementById("correo").value = demo.correo;
+})(
+  (function crearApi({ USUARIOS, CODIGO_VALIDO, ORDENES, COPIA }) {
+  const pendientes = new Map();
+  const sesiones = new Map();
+  let consecutivo = 0;
+  const ficha = (prefijo) => `${prefijo}-${++consecutivo}-${Math.random().toString(36).slice(2, 10)}`;
+
+  const vencido = { pendingExpired: true, error: "El tiempo para escribir el código terminó. Vuelve a entrar." };
+
+  function publico(orden) {
+    const { originadorCorreo: _correo, ...resto } = orden;
+    return resto;
+  }
+
+  function cierre(orden, usuario) {
+    return {
+      ok: true,
+      usuario: usuario.usuario,
+      fecha: new Date().toISOString(),
+      correo: { enviado: true, para: orden.originadorCorreo, copia: COPIA },
+    };
+  }
+
+  return function responder(ruta, cuerpo, token) {
+    if (ruta === "POST /api/validausuario") {
+      const usuario = USUARIOS[String(cuerpo.usuario || "").trim().toUpperCase()];
+      if (!usuario) return [200, { valid: false, error: "Usuario no válido en JD Edwards" }];
+      if (usuario.correo !== String(cuerpo.correo || "").trim().toLowerCase()) {
+        return [200, { valid: false, error: "El correo no coincide con el registrado en JD Edwards para este usuario." }];
+      }
+      const pendingToken = ficha("pendiente");
+      pendientes.set(pendingToken, usuario);
+      return [200, { valid: false, mfaRequired: true, pendingToken, user: usuario }];
+    }
+
+    if (ruta === "POST /api/mfa/configurar") {
+      const usuario = pendientes.get(cuerpo.pendingToken);
+      if (!usuario) return [401, { sent: false, ...vencido }];
+      return [200, { sent: true, sentTo: usuario.correo }];
+    }
+
+    if (ruta === "POST /api/mfa/verify") {
+      const usuario = pendientes.get(cuerpo.pendingToken);
+      if (!usuario) return [401, { valid: false, ...vencido }];
+      if (cuerpo.code !== CODIGO_VALIDO) return [200, { valid: false, error: "Código incorrecto. Revisa la app e inténtalo de nuevo." }];
+      const nuevo = ficha("sesion");
+      sesiones.set(nuevo, usuario);
+      return [200, { valid: true, token: nuevo, user: usuario }];
+    }
+
+    const usuario = sesiones.get(token);
+    if (!usuario) return [401, { sessionExpired: true, error: "Tu sesión expiró o no es válida. Vuelve a iniciar sesión." }];
+
+    if (ruta === "GET /api/session") return [200, { valid: true, user: usuario }];
+
+    const orden = ORDENES[`${cuerpo.tipo || ""} ${cuerpo.orden}`.trim()];
+    if (ruta === "POST /api/orden") {
+      return [200, orden ? { encontrada: true, orden: publico(orden) } : { encontrada: false }];
+    }
+    if (ruta === "POST /api/liberar") {
+      return orden ? [200, cierre(orden, usuario)] : [404, { ok: false, error: "No se encontró la orden." }];
+    }
+    if (ruta === "POST /api/rechazar") {
+      if (!orden) return [404, { ok: false, error: "No se encontró la orden." }];
+      if (!String(cuerpo.observacion || "").trim()) return [400, { ok: false, error: "Escribe la observación del rechazo." }];
+      return [200, cierre(orden, usuario)];
+    }
+    return [404, { error: `Ruta no encontrada: ${ruta}` }];
+  };
+})({"CODIGO_VALIDO":"123456","COPIA":"laura@impulsora.com","ORDENES":{"SQ 5024098":{"tipo":"SQ","numero":5024098,"cliente":{"numero":"222111","nombre":"CLIENTE CONTADO MOSTRADOR","tipo":"MOS"},"condiciones":{"codigo":"CDO","descripcion":"Contado","valor":0},"descuento":{"codigo":"CDO","descripcion":"Contado","valor":0},"sucursal":"1080","zona":"999","in":"NO","fecha":"2026-11-12","originador":"SMUGRABI","originadorCorreo":"smugrabi@impulsora.com","ocCliente":"","utilidad":30.96,"partidas":[{"sku":"QO120","cantidad":24,"puMax":158.93,"puOrden":158.49,"moneda":"MXP","um":"PZ","descripcion":"ACEITE MOTOR 20W50 MULTIGRADO 946 ML","costo42":121.37,"promociones":[{"descripcion":"Promoción noviembre 3%","vigencia":"01/11/2026 al 30/11/2026"}],"diferencia":-0.2768514440319623},{"sku":"QO340","cantidad":2,"puMax":1573.01,"puOrden":2000,"moneda":"MXP","um":"PZ","descripcion":"ACEITE MOTOR DIESEL 15W40 CUBETA 19 L","costo42":1380.72,"promociones":[],"diferencia":27.144773396227617},{"sku":"FA2210","cantidad":12,"puMax":96.5,"puOrden":96.5,"moneda":"MXP","um":"PZ","descripcion":"FILTRO DE ACEITE SELLADO LINEA LIGERA","costo42":71.2,"promociones":[],"diferencia":0},{"sku":"BA4475","cantidad":4,"puMax":2315,"puOrden":2190,"moneda":"MXP","um":"PZ","descripcion":"BATERIA 12 V 550 CCA GRUPO 47","costo42":1842.66,"promociones":[{"descripcion":"Volumen 4+ piezas 5%","vigencia":"15/10/2026 al 31/12/2026"},{"descripcion":"Bonificación proveedor 2%","vigencia":"01/11/2026 al 30/11/2026"}],"diferencia":-5.399568034557236},{"sku":"LI0815","cantidad":1200,"puMax":12.4,"puOrden":13.1,"moneda":"MXP","um":"LT","descripcion":"ANTICONGELANTE CONCENTRADO VERDE A GRANEL","costo42":9.85,"promociones":[],"diferencia":5.645161290322575},{"sku":"BU9003","cantidad":36,"puMax":48.75,"puOrden":47.9,"moneda":"MXP","um":"PZ","descripcion":"BUJIA DE IRIDIO ROSCA 14 MM","costo42":33.1,"promociones":[],"diferencia":-1.7435897435897467}]}},"USUARIOS":{"MSALINAS":{"usuario":"MSALINAS","nombre":"Marco Salinas","rol":"ADMIN","correo":"msalinas@impulsora.com"}}}),
+  {"usuario":"MSALINAS","correo":"msalinas@impulsora.com","codigo":"123456","orden":5024098}
+);
+</script>
+<script>
+/**
+ * api.js — llamadas a la API propia (/api/*).
+ *
+ * El acceso es en dos pasos: /api/validausuario revisa usuario y correo, y
+ * /api/mfa/verify revisa el código de 6 dígitos y devuelve el token de sesión
+ * que exigen las demás rutas, en el encabezado X-Session-Token.
+ */
+
+const CLAVE_TOKEN = "libToken";
+const CLAVE_USUARIO = "libUsuario";
+
+// sessionStorage puede no estar disponible (navegación privada); la sesión vive
+// entonces solo en memoria, hasta recargar la página.
+const memoria = {};
+const guardado = {
+  leer(clave) {
+    try { return sessionStorage.getItem(clave); } catch { return memoria[clave] ?? null; }
+  },
+  poner(clave, valor) {
+    memoria[clave] = valor;
+    try { sessionStorage.setItem(clave, valor); } catch { /* queda en memoria */ }
+  },
+  quitar(clave) {
+    delete memoria[clave];
+    try { sessionStorage.removeItem(clave); } catch { /* ya no está en memoria */ }
+  },
+};
+
+const sesion = {
+  token: () => guardado.leer(CLAVE_TOKEN) || "",
+  usuario: () => {
+    try { return JSON.parse(guardado.leer(CLAVE_USUARIO)) || null; } catch { return null; }
+  },
+  guardar(token, usuario) {
+    guardado.poner(CLAVE_TOKEN, token);
+    guardado.poner(CLAVE_USUARIO, JSON.stringify(usuario));
+  },
+  cerrar() {
+    guardado.quitar(CLAVE_TOKEN);
+    guardado.quitar(CLAVE_USUARIO);
+  },
+};
+
+// Resuelve { ok, status, data }. Nunca lanza: los fallos de red llegan como data.error.
+async function llamar(ruta, cuerpo, metodo = "POST") {
+  let res;
+  try {
+    res = await fetch(ruta, {
+      method: metodo,
+      headers: { "Content-Type": "application/json", "X-Session-Token": sesion.token() },
+      body: metodo === "GET" ? undefined : JSON.stringify(cuerpo || {}),
+    });
+  } catch {
+    return { ok: false, status: 0, data: { error: "Sin conexión. Revisa tu red e inténtalo de nuevo." } };
+  }
+  const data = await res.json().catch(() => ({ error: `El servidor respondió HTTP ${res.status}` }));
+  if (res.status === 401 && data.sessionExpired && typeof alExpirarSesion === "function") alExpirarSesion();
+  return { ok: res.ok, status: res.status, data };
+}
+
+const api = {
+  validarUsuario: (usuario, correo) => llamar("/api/validausuario", { usuario, correo }),
+  configurarCodigo: (pendingToken) => llamar("/api/mfa/configurar", { pendingToken }),
+  verificarCodigo: (pendingToken, code) => llamar("/api/mfa/verify", { pendingToken, code }),
+  revisarSesion: () => llamar("/api/session", null, "GET"),
+  buscarOrden: (tipo, orden) => llamar("/api/orden", { tipo, orden }),
+  liberar: (tipo, orden) => llamar("/api/liberar", { tipo, orden }),
+  rechazar: (tipo, orden, observacion) => llamar("/api/rechazar", { tipo, orden, observacion }),
+};
+
+</script>
+<script>
+const $ = (id) => document.getElementById(id);
+
+const numero2 = new Intl.NumberFormat("es-MX", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const cantidad = new Intl.NumberFormat("es-MX", { maximumFractionDigits: 2 });
+const porcentaje = (n) => `${numero2.format(n)}%`;
+
+function esc(valor) {
+  return String(valor ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+// "2026-11-12" → "12/11/2026"
+function fechaCorta(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(iso || ""));
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : String(iso || "");
+}
+
+function fechaHora(iso) {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  return d.toLocaleString("es-MX", {
+    timeZone: "America/Monterrey",
+    day: "2-digit", month: "2-digit", year: "numeric",
+    hour: "2-digit", minute: "2-digit", hour12: false,
+  });
+}
+
+function mostrar(el, texto) {
+  el.textContent = texto;
+  el.hidden = false;
+}
+
+function ocupado(boton, texto) {
+  boton.dataset.texto = boton.dataset.texto || boton.textContent;
+  boton.disabled = true;
+  boton.textContent = texto;
+}
+
+function libre(boton) {
+  boton.disabled = false;
+  if (boton.dataset.texto) boton.textContent = boton.dataset.texto;
+}
+
+// ── Acceso ───────────────────────────────────────────────────────────────────
+
+let tokenPendiente = "";
+let usuarioPendiente = null;
+
+function abrirAcceso() {
+  $("vistaApp").hidden = true;
+  $("vistaAcceso").hidden = false;
+  cerrarHojas();
+  irAPasoUsuario();
+}
+
+function irAPasoUsuario() {
+  tokenPendiente = "";
+  $("pasoCodigo").hidden = true;
+  $("pasoUsuario").hidden = false;
+  $("errorUsuario").hidden = true;
+}
+
+function irAPasoCodigo() {
+  $("pasoUsuario").hidden = true;
+  $("pasoCodigo").hidden = false;
+  $("errorCodigo").hidden = true;
+  $("notaCodigo").hidden = true;
+  $("codigo").value = "";
+  pintarCodigo();
+  $("codigo").focus();
+}
+
+function pintarCodigo() {
+  const valor = $("codigo").value;
+  const enfocado = document.activeElement === $("codigo");
+  document.querySelectorAll(".codigo-celdas span").forEach((celda, i) => {
+    celda.textContent = valor[i] || "";
+    celda.classList.toggle("activa", enfocado && i === Math.min(valor.length, 5));
+  });
+}
+
+$("pasoUsuario").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  $("errorUsuario").hidden = true;
+  const usuario = $("usuario").value.trim();
+  const correo = $("correo").value.trim();
+  if (!usuario || !correo) return mostrar($("errorUsuario"), "Escribe tu usuario y tu correo.");
+
+  ocupado($("btnEntrar"), "Validando…");
+  const { data } = await api.validarUsuario(usuario, correo);
+  libre($("btnEntrar"));
+
+  if (!data.mfaRequired) return mostrar($("errorUsuario"), data.error || "No se pudo validar el usuario.");
+  tokenPendiente = data.pendingToken;
+  usuarioPendiente = data.user;
+  irAPasoCodigo();
+});
+
+$("codigo").addEventListener("input", () => {
+  $("codigo").value = $("codigo").value.replace(/\D/g, "").slice(0, 6);
+  pintarCodigo();
+});
+
+// Código de 6 dígitos dentro de un texto copiado ("123456" o "123 456"), o "".
+function codigoEn(texto) {
+  const m = /(?:^|\D)(\d{3})\s?(\d{3})(?!\d)/.exec(String(texto || ""));
+  return m ? m[1] + m[2] : "";
+}
+
+function ponerCodigo(texto) {
+  const codigo = codigoEn(texto);
+  if (!codigo) return mostrar($("errorCodigo"), "Lo que copiaste no es un código de 6 dígitos.");
+  $("errorCodigo").hidden = true;
+  $("codigo").value = codigo;
+  pintarCodigo();
+}
+
+$("codigo").addEventListener("paste", (e) => {
+  e.preventDefault();
+  ponerCodigo(e.clipboardData ? e.clipboardData.getData("text") : "");
+});
+
+$("btnPegar").addEventListener("click", async () => {
+  $("errorCodigo").hidden = true;
+  let copiado;
+  try {
+    copiado = await navigator.clipboard.readText();
+  } catch {
+    return mostrar($("errorCodigo"), "No se pudo leer lo copiado. Mantén presionados los recuadros y elige Pegar.");
+  }
+  ponerCodigo(copiado);
+});
+$("codigo").addEventListener("focus", pintarCodigo);
+$("codigo").addEventListener("blur", pintarCodigo);
+
+$("pasoCodigo").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  $("errorCodigo").hidden = true;
+  const code = $("codigo").value;
+  if (code.length !== 6) return mostrar($("errorCodigo"), "Escribe los 6 dígitos que muestra la app.");
+
+  ocupado($("btnVerificar"), "Verificando…");
+  const { data } = await api.verificarCodigo(tokenPendiente, code);
+  libre($("btnVerificar"));
+
+  if (data.valid) {
+    sesion.guardar(data.token, data.user);
+    return abrirApp();
+  }
+  if (data.pendingExpired) {
+    irAPasoUsuario();
+    return mostrar($("errorUsuario"), data.error || "Vuelve a entrar.");
+  }
+  $("codigo").value = "";
+  pintarCodigo();
+  mostrar($("errorCodigo"), data.error || "Código incorrecto.");
+});
+
+$("btnVolver").addEventListener("click", irAPasoUsuario);
+
+$("btnConfigurar").addEventListener("click", async () => {
+  $("errorCodigo").hidden = true;
+  $("notaCodigo").hidden = true;
+  $("btnConfigurar").disabled = true;
+  const { data } = await api.configurarCodigo(tokenPendiente);
+  $("btnConfigurar").disabled = false;
+
+  if (data.sent) {
+    return mostrar($("notaCodigo"), `Enviamos las instrucciones a ${data.sentTo}. Abre el correo en este celular y sigue los pasos.`);
+  }
+  if (data.pendingExpired) {
+    irAPasoUsuario();
+    return mostrar($("errorUsuario"), data.error || "Vuelve a entrar.");
+  }
+  mostrar($("errorCodigo"), data.error || "No se pudo enviar el correo.");
+});
+
+function alExpirarSesion() {
+  sesion.cerrar();
+  abrirAcceso();
+  mostrar($("errorUsuario"), "Tu sesión terminó. Vuelve a entrar.");
+}
+
+// ── Búsqueda ─────────────────────────────────────────────────────────────────
+
+let ordenActual = null;
+
+function abrirApp() {
+  const usuario = sesion.usuario();
+  $("usuarioActivo").textContent = usuario ? usuario.usuario : "";
+  $("vistaAcceso").hidden = true;
+  $("vistaApp").hidden = false;
+  reiniciarBusqueda();
+}
+
+function reiniciarBusqueda() {
+  ordenActual = null;
+  $("orden").hidden = true;
+  $("resultado").hidden = true;
+  $("acciones").hidden = true;
+  $("errorBusqueda").hidden = true;
+  $("busqueda").hidden = false;
+  $("busqueda").classList.remove("compacta");
+  $("numDoc").value = "";
+}
+
+function referencia(orden) {
+  return [orden.tipo, orden.numero].filter(Boolean).join(" ");
+}
+
+$("numDoc").addEventListener("input", () => {
+  $("numDoc").value = $("numDoc").value.replace(/\D/g, "").slice(0, 10);
+});
+
+$("formBusqueda").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  $("errorBusqueda").hidden = true;
+  const tipo = $("tipoDoc").value;
+  const numero = $("numDoc").value.trim();
+  if (!numero) return mostrar($("errorBusqueda"), "Escribe el número de documento.");
+
+  $("numDoc").blur();
+  ocupado($("btnBuscar"), "Buscando…");
+  const { ok, data } = await api.buscarOrden(tipo, numero);
+  libre($("btnBuscar"));
+
+  if (!ok || !data.encontrada) {
+    $("orden").hidden = true;
+    $("acciones").hidden = true;
+    ordenActual = null;
+    const ref = [tipo, numero].filter(Boolean).join(" ");
+    return mostrar($("errorBusqueda"), data.error || `No se encontró la orden ${ref}.`);
+  }
+  pintarOrden(data.orden);
+});
+
+// ── Orden ────────────────────────────────────────────────────────────────────
+
+function fila(etiqueta, valorHtml) {
+  return `<tr><th>${esc(etiqueta)}</th><td>${valorHtml}</td></tr>`;
+}
+
+function texto(valor) {
+  const v = String(valor ?? "").trim();
+  return v ? esc(v) : `<span class="vacio">—</span>`;
+}
+
+// Código y descripción a la izquierda, valor numérico a la derecha.
+function claveDescripcion(clave, descripcion, valor) {
+  return `<span class="par"><span>${esc(clave)} <span class="desc">${esc(descripcion)}</span></span><span>${esc(valor)}</span></span>`;
+}
+
+function pintarOrden(orden) {
+  ordenActual = orden;
+  $("docNumero").textContent = referencia(orden);
+
+  $("encabezado").innerHTML = [
+    fila("Cliente", `${esc(orden.cliente.numero)}<span class="sub">${esc(orden.cliente.nombre)}</span>`),
+    fila("Tipo de cliente", texto(orden.cliente.tipo)),
+    fila("Condiciones cliente", claveDescripcion(orden.condiciones.codigo, orden.condiciones.descripcion, orden.condiciones.valor)),
+    fila("Descuento encabezado", claveDescripcion(orden.descuento.codigo, orden.descuento.descripcion, orden.descuento.valor)),
+    fila("Sucursal venta", texto(orden.sucursal)),
+    fila("Zona cliente", texto(orden.zona)),
+    fila("** IN **", texto(orden.in)),
+    fila("Fecha orden", texto(fechaCorta(orden.fecha))),
+    fila("Originador", texto(orden.originador)),
+    fila("OC cliente", texto(orden.ocCliente)),
+  ].join("");
+
+  $("utilidad").textContent = porcentaje(orden.utilidad);
+
+  const n = orden.partidas.length;
+  $("numPartidas").textContent = `· ${n} ${n === 1 ? "artículo" : "artículos"}`;
+  $("partidas").innerHTML = orden.partidas.map(filaPartida).join("");
+
+  $("busqueda").classList.add("compacta");
+  $("resultado").hidden = true;
+  $("orden").hidden = false;
+  $("acciones").hidden = false;
+  window.scrollTo(0, 0);
+}
+
+function filaPartida(p, i) {
+  const clase = p.diferencia < 0 ? "dif-neg" : "dif-pos";
+  const promos = (p.promociones || []).length
+    ? p.promociones.map((pr) => `<span class="promo">${esc(pr.descripcion)}<small>${esc(pr.vigencia)}</small></span>`).join("")
+    : `<span class="vacio">Sin promociones</span>`;
+
+  return `
+    <tr class="partida" data-i="${i}" tabindex="0" role="button" aria-expanded="false">
+      <td>
+        <span class="art"><span class="flecha"></span>
+          <span><span class="sku">${esc(p.sku)}</span><span class="unidad">${esc(p.um)} · ${esc(p.moneda)}</span></span>
+        </span>
+      </td>
+      <td class="num">${cantidad.format(p.cantidad)}</td>
+      <td class="num">${numero2.format(p.puMax)}</td>
+      <td class="num">${numero2.format(p.puOrden)}</td>
+      <td class="num dif ${clase}">${porcentaje(p.diferencia)}</td>
+    </tr>
+    <tr class="partida-detalle" data-detalle="${i}" hidden>
+      <td colspan="5">
+        <dl>
+          <div class="renglon bloque"><dt>Descripción</dt><dd>${texto(p.descripcion)}</dd></div>
+          <div class="renglon"><dt>Costo 42</dt><dd>${numero2.format(p.costo42)} ${esc(p.moneda)}</dd></div>
+          <div class="renglon bloque"><dt>Promociones</dt><dd>${promos}</dd></div>
+        </dl>
+      </td>
+    </tr>`;
+}
+
+function alternarPartida(filaEl) {
+  const detalle = document.querySelector(`[data-detalle="${filaEl.dataset.i}"]`);
+  const abrir = detalle.hidden;
+  detalle.hidden = !abrir;
+  filaEl.classList.toggle("abierta", abrir);
+  filaEl.setAttribute("aria-expanded", String(abrir));
+}
+
+$("partidas").addEventListener("click", (e) => {
+  const filaEl = e.target.closest(".partida");
+  if (filaEl) alternarPartida(filaEl);
+});
+$("partidas").addEventListener("keydown", (e) => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const filaEl = e.target.closest(".partida");
+  if (filaEl) { e.preventDefault(); alternarPartida(filaEl); }
+});
+
+// ── Liberar / rechazar ───────────────────────────────────────────────────────
+
+function abrirHoja(id) {
+  $("velo").hidden = false;
+  $("hojaLiberar").hidden = id !== "hojaLiberar";
+  $("hojaRechazar").hidden = id !== "hojaRechazar";
+  document.body.style.overflow = "hidden";
+}
+
+function cerrarHojas() {
+  $("velo").hidden = true;
+  document.body.style.overflow = "";
+}
+
+$("velo").addEventListener("click", (e) => {
+  if (e.target === $("velo") || e.target.closest("[data-cerrar]")) cerrarHojas();
+});
+
+$("btnLiberar").addEventListener("click", () => {
+  const ref = referencia(ordenActual);
+  $("tituloLiberar").textContent = `¿Liberar la orden ${ref}?`;
+  $("textoLiberar").textContent = `¿Estás seguro? Se avisará por correo al originador (${ordenActual.originador}).`;
+  $("resumenLiberar").innerHTML =
+    fila("Cliente", `${esc(ordenActual.cliente.numero)}<span class="sub">${esc(ordenActual.cliente.nombre)}</span>`) +
+    `<tr><th>Utilidad</th><td class="celda-utilidad">${esc(porcentaje(ordenActual.utilidad))}</td></tr>`;
+  $("errorLiberar").hidden = true;
+  abrirHoja("hojaLiberar");
+});
+
+$("btnRechazar").addEventListener("click", () => {
+  const ref = referencia(ordenActual);
+  $("tituloRechazar").textContent = `¿Rechazar la orden ${ref}?`;
+  $("textoRechazar").textContent = `¿Estás seguro? Se avisará por correo al originador (${ordenActual.originador}).`;
+  $("observacion").value = "";
+  $("cuentaObservacion").textContent = "0";
+  $("btnConfirmarRechazar").disabled = true;
+  $("errorRechazar").hidden = true;
+  abrirHoja("hojaRechazar");
+});
+
+$("observacion").addEventListener("input", () => {
+  const valor = $("observacion").value;
+  $("cuentaObservacion").textContent = String(valor.length);
+  $("btnConfirmarRechazar").disabled = valor.trim().length === 0;
+});
+
+$("btnConfirmarLiberar").addEventListener("click", async () => {
+  $("errorLiberar").hidden = true;
+  ocupado($("btnConfirmarLiberar"), "Liberando…");
+  const { ok, data } = await api.liberar(ordenActual.tipo, ordenActual.numero);
+  libre($("btnConfirmarLiberar"));
+  if (!ok || !data.ok) return mostrar($("errorLiberar"), data.error || "No se pudo liberar la orden.");
+  pintarResultado("liberada", data);
+});
+
+$("btnConfirmarRechazar").addEventListener("click", async () => {
+  $("errorRechazar").hidden = true;
+  const observacion = $("observacion").value.trim();
+  ocupado($("btnConfirmarRechazar"), "Rechazando…");
+  const { ok, data } = await api.rechazar(ordenActual.tipo, ordenActual.numero, observacion);
+  libre($("btnConfirmarRechazar"));
+  if (!ok || !data.ok) return mostrar($("errorRechazar"), data.error || "No se pudo rechazar la orden.");
+  pintarResultado("rechazada", { ...data, observacion });
+});
+
+// ── Resultado ────────────────────────────────────────────────────────────────
+
+function pintarResultado(estado, data) {
+  const orden = ordenActual;
+  const ref = referencia(orden);
+  const correo = data.correo || {};
+
+  $("resultadoEstado").className = `resultado-estado ${estado}`;
+  $("resultadoEstado").innerHTML =
+    `${estado === "liberada" ? "Orden liberada" : "Orden rechazada"}<small>${esc(ref)}</small>`;
+
+  const filas = [
+    fila("Cliente", `${esc(orden.cliente.numero)}<span class="sub">${esc(orden.cliente.nombre)}</span>`),
+    fila(estado === "liberada" ? "Liberó" : "Rechazó", texto(data.usuario)),
+    fila("Fecha y hora", texto(fechaHora(data.fecha))),
+  ];
+  if (estado === "rechazada") filas.push(fila("Observación", `<span class="sub">${esc(data.observacion)}</span>`));
+  filas.push(
+    correo.enviado
+      ? fila("Correo enviado a", `${texto(correo.para)}<span class="sub">Copia: ${texto(correo.copia)}</span>`)
+      : fila("Correo", `<span class="sub">No se pudo enviar el aviso por correo.</span>`),
+  );
+  $("resultadoFicha").innerHTML = filas.join("");
+
+  cerrarHojas();
+  $("orden").hidden = true;
+  $("acciones").hidden = true;
+  $("busqueda").hidden = true;
+  $("resultado").hidden = false;
+  window.scrollTo(0, 0);
+}
+
+$("btnOtra").addEventListener("click", () => {
+  reiniciarBusqueda();
+  $("numDoc").focus();
+});
+
+$("btnSalir").addEventListener("click", () => {
+  sesion.cerrar();
+  abrirAcceso();
+});
+
+// ── Arranque ─────────────────────────────────────────────────────────────────
+
+(async function iniciar() {
+  if (!sesion.token()) return abrirAcceso();
+  const { data } = await api.revisarSesion();
+  if (data.valid) abrirApp();
+  else if (!data.sessionExpired) { sesion.cerrar(); abrirAcceso(); }
+})();
+
+</script>
+</body>
+</html>
